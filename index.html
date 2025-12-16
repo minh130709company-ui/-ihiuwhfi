@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gửi em bé của tớ 💙</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  height:100vh;
+  background: radial-gradient(circle at top, #1b1b2f, #0b0b16);
+  overflow:hidden;
+  color:white;
+}
+
+/* ===== MƯA TRÁI TIM ===== */
+.heart{
+  position:absolute;
+  top:-20px;
+  animation: fall linear infinite;
+  opacity:0.9;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+
+/* ===== INTRO ===== */
+#intro{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+#intro h1{
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+#intro p{
+  opacity:0.8;
+  margin-bottom:25px;
+}
+
+#intro button{
+  padding:14px 26px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(145deg,#ff7eb3,#ff4d8d);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(255,120,200,0.6);
+}
+
+/* ===== KẸO ===== */
+.container{
+  position:relative;
+  z-index:5;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+  padding:20px;
+}
+
+.candy{
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#ff8fcf,#ff5fa2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:32px;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(255,120,200,0.7);
+  animation: float 3s ease-in-out infinite;
+}
+
+.candy:nth-child(even){
+  animation-delay:1.5s;
+}
+
+@keyframes float{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-10px); }
+}
+
+/* ===== MESSAGE ===== */
+#message{
+  position:fixed;
+  bottom:50px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.65);
+  padding:18px 26px;
+  border-radius:22px;
+  text-align:center;
+  max-width:85%;
+  font-size:17px;
+  display:none;
+  z-index:10;
+  animation: pop 0.4s ease;
+}
+
+@keyframes pop{
+  from{opacity:0; transform:translate(-50%,20px);}
+  to{opacity:1; transform:translate(-50%,0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <h1>Gửi em bé của tớ 💙</h1>
+  <p>Bé bấm từng viên kẹo nha,<br>mỗi cái là một chút thương của tớ đó 🍬</p>
+  <button onclick="start()">Bắt đầu nè 💖</button>
+</div>
+
+<!-- MESSAGE -->
+<div id="message"></div>
+
+<!-- KẸO -->
+<div class="container">
+  <div class="candy" onclick="playCandy(1)">🍬</div>
+  <div class="candy" onclick="playCandy(2)">🍬</div>
+  <div class="candy" onclick="playCandy(3)">🍬</div>
+  <div class="candy" onclick="playCandy(4)">🍬</div>
+  <div class="candy" onclick="playCandy(5)">🍬</div>
+</div>
+
+<script>
+/* ===== START ===== */
+function start(){
+  document.getElementById("intro").style.display="none";
+  setInterval(createHeart,100);
+}
+
+/* ===== HEART ===== */
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML=Math.random()>0.5?"💖":"💗";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=Math.random()*22+12+"px";
+  heart.style.animationDuration=Math.random()*3+2+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}
+
+/* ===== CONTENT ===== */
+const texts={
+  1:"Tớ thương bé nhất, tớ để ý em nhất, tớ nhớ em nhất 💙",
+  2:"Em bé cụa tớ ngoannnnnnn, honggg nghĩ linhh tinhhh 🥺",
+  3:"Bé nhớ tớ quan tâm từng chi tiết nhỏ như nào màaaa 🫶",
+  4:"Tớ thương em, nhớ em và iuuuu emmmm 💕",
+  5:"Tớ yêu em bé của tớ 💖"
+};
+
+let audio=null;
+
+function playCandy(n){
+  const msg=document.getElementById("message");
+  msg.innerText=texts[n];
+  msg.style.display="block";
+
+  if(audio){ audio.pause(); }
+  audio=new Audio(`voi${n}.m4a`);
+  audio.play();
+}
+</script>
+
+</body>
+</html>
